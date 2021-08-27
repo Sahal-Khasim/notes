@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>NOtes</title>
+</head>
+
+<body style="background-color: rgb(169, 175, 173);">
+    <section>
+        <nav class="navbar navbar-light bg-dark justify-content-between">
+            <a class="navbar-brand text-white">Welcome To Notes {{request.user.username}}</a>
+            <form class="form-inline">
+                {% if user.is_authenticated %}
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="{% url 'users:login' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'users:register_first' %}">Register</a>
+                {% endif %}
+            </form>
+            </nav>
+    </section>
+
+    <section>
+        <form method="POST" action="{% url 'notes' %}">{% csrf_token %}
+            <div class="form-group">
+                <label>Event : </label>
+                <input name="event" class="form-control col-xs-3" style="width: 30%;" placeholder="Subject">
+                </div>
+            <div class="form-group">
+            <label >Notes : </label>
+            <textarea name="notes" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-accent bg-dark text-white">Save</button>
+                </div>
+        </form>
+    </section>
+
+    <section>
+        <!-- {% for note in notess %} -->
+        <!-- <p class="card-text" style="text-decoration: underline;">{{ notess.event }}</p> -->
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1"></label>
+            <textarea class="form-control" >{{ notess.notes }}</textarea>
+        </div>
+        <!-- {% endfor %} -->
+    </section>
+</body>
+</html>
